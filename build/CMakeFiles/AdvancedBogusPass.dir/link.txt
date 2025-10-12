@@ -1,0 +1,1 @@
+clang++ -fPIC -O3 -DNDEBUG -shared -Wl,-soname,AdvancedBogusPass.so -o AdvancedBogusPass.so CMakeFiles/AdvancedBogusPass.dir/passes/AdvancedBogusPass.cpp.o 

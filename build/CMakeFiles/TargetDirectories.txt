@@ -1,0 +1,12 @@
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/intrinsics_gen.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/omp_gen.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/acc_gen.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/RISCVTargetParserTableGen.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/AdvancedBogusPass.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/PolymorphicStringPass.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/CFFlattening.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/OpaquePredicatePass.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/FunctionSplittingPass.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/advanced-obfuscator.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/edit_cache.dir
+/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/rebuild_cache.dir

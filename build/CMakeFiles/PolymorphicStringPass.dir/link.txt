@@ -1,0 +1,1 @@
+clang++ -fPIC -O3 -DNDEBUG -shared -Wl,-soname,PolymorphicStringPass.so -o PolymorphicStringPass.so CMakeFiles/PolymorphicStringPass.dir/passes/PolymorphicStringPass.cpp.o 

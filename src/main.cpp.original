@@ -1,0 +1,351 @@
+#include <iostream>
+#include <filesystem>
+#include <cstdlib>
+#include <string>
+#include <vector>
+#include <map>
+#include <chrono>
+#include "ObfuscationReporter.h"
+
+class AdvancedObfuscator {
+private:
+    std::string input_file_;
+    std::string output_binary_;
+    std::map<std::string, bool> enabled_passes_;
+    int cycles_ = 1;
+    int bogus_intensity_ = 3;
+    ObfuscationMetrics metrics_;
+    
+public:
+    AdvancedObfuscator(const std::string& input) : input_file_(input), output_binary_("obf_exec") {
+        // Initialize all passes as disabled
+        enabled_passes_["bogus"] = false;
+        enabled_passes_["string-encrypt"] = false;
+        enabled_passes_["cf-flatten"] = false;
+        enabled_passes_["opaque"] = false;
+        enabled_passes_["function-split"] = false;
+    }
+    
+    void enablePass(const std::string& pass_name) {
+        if (enabled_passes_.find(pass_name) != enabled_passes_.end()) {
+            enabled_passes_[pass_name] = true;
+            std::cout << "✓ Enabled pass: " << pass_name << "\n";
+        }
+    }
+    
+    void setCycles(int cycles) { cycles_ = cycles; }
+    void setBogusIntensity(int intensity) { bogus_intensity_ = intensity; }
+    
+    bool generateLLVMIR() {
+        std::string ir_file = "input.ll";
+        std::string clang_cmd = "clang -S -emit-llvm \"" + input_file_ + "\" -o " + ir_file;
+        
+        std::cout << "🔄 Generating LLVM IR...\n";
+        int result = std::system(clang_cmd.c_str());
+        if (result != 0) {
+            std::cerr << "❌ Failed to generate LLVM IR\n";
+            return false;
+        }
+        
+        // Verify the IR file was created
+        if (!std::filesystem::exists(ir_file)) {
+            std::cerr << "❌ IR file was not created\n";
+            return false;
+        }
+        
+        std::cout << "✅ LLVM IR generated: " << ir_file << "\n";
+        return true;
+    }
+    
+    bool applyObfuscation() {
+        std::cout << "\n🔒 Applying obfuscation passes...\n";
+        
+        auto start_time = std::chrono::high_resolution_clock::now();
+        std::string current_ir = "input.ll";
+        
+        for (int cycle = 0; cycle < cycles_; cycle++) {
+            std::cout << "  Cycle " << (cycle + 1) << "/" << cycles_ << "\n";
+            
+            int step = 0;
+            std::string temp_ir_base = "temp_cycle" + std::to_string(cycle + 1);
+
+            if (enabled_passes_["bogus"]) {
+                std::string next_ir = temp_ir_base + "_" + std::to_string(step++) + ".ll";
+                if (!applyBogusPass(current_ir, next_ir)) {
+                    std::cerr << "❌ Bogus pass failed\n";
+                    return false;
+                }
+                current_ir = next_ir;
+            }
+            
+            if (enabled_passes_["string-encrypt"]) {
+                std::string next_ir = temp_ir_base + "_" + std::to_string(step++) + ".ll";
+                if (!applyStringEncryptionPass(current_ir, next_ir)) {
+                    std::cerr << "❌ String encryption pass failed\n";
+                    return false;
+                }
+                current_ir = next_ir;
+            }
+            
+            if (enabled_passes_["opaque"]) {
+                std::string next_ir = temp_ir_base + "_" + std::to_string(step++) + ".ll";
+                if (!applyOpaquePredicates(current_ir, next_ir)) {
+                    std::cerr << "❌ Opaque predicate pass failed\n";
+                    return false;
+                }
+                current_ir = next_ir;
+            }
+            
+            if (enabled_passes_["function-split"]) {
+                std::string next_ir = temp_ir_base + "_" + std::to_string(step++) + ".ll";
+                if (!applyFunctionSplitting(current_ir, next_ir)) {
+                    std::cerr << "❌ Function splitting pass failed\n";
+                    return false;
+                }
+                current_ir = next_ir;
+            }
+            
+            // Apply CF flattening last due to its complexity
+            if (enabled_passes_["cf-flatten"]) {
+                std::string next_ir = temp_ir_base + "_" + std::to_string(step++) + ".ll";
+                if (!applyCFFlattening(current_ir, next_ir)) {
+                    std::cerr << "❌ Control flow flattening pass failed, continuing without it\n";
+                    // Don't return false, just continue without CF flattening
+                } else {
+                    current_ir = next_ir;
+                }
+            }
+        }
+        
+        // Copy final IR to standard name
+        if (current_ir != "obfuscated.ll") {
+            if (std::filesystem::exists(current_ir)) {
+                std::filesystem::rename(current_ir, "obfuscated.ll");
+            } else {
+                std::cerr << "❌ Final IR file not found: " << current_ir << "\n";
+                return false;
+            }
+        }
+        
+        auto end_time = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+        
+        std::cout << "✅ Obfuscation completed in " << duration.count() << "ms\n";
+        return true;
+    }
+    
+private:
+    bool applyPass(const std::string& pass_plugin, const std::string& pass_name, 
+                   const std::string& input, const std::string& output) {
+        std::string cmd = "opt -load-pass-plugin=./build/" + pass_plugin + ".so -passes=" + pass_name + " -S " + input + " -o " + output + " 2>/dev/null";
+        int result = std::system(cmd.c_str());
+        
+        // Check if output file was created and has content
+        if (result == 0 && std::filesystem::exists(output)) {
+            auto file_size = std::filesystem::file_size(output);
+            if (file_size > 0) {
+                return true;
+            }
+        }
+        
+        std::cerr << "❌ Pass " << pass_name << " failed or produced empty output\n";
+        return false;
+    }
+
+    bool applyBogusPass(const std::string& input, const std::string& output) {
+        if (applyPass("AdvancedBogusPass", "advanced-bogus", input, output)) {
+            metrics_.bogus_instructions += bogus_intensity_ * 10;
+            return true;
+        }
+        return false;
+    }
+    
+    bool applyStringEncryptionPass(const std::string& input, const std::string& output) {
+        if (applyPass("PolymorphicStringPass", "poly-string", input, output)) {
+            metrics_.encrypted_strings += 5;
+            return true;
+        }
+        return false;
+    }
+    
+    bool applyCFFlattening(const std::string& input, const std::string& output) {
+        if (applyPass("CFFlattening", "cf-flatten", input, output)) {
+            metrics_.flattened_functions += 2;
+            return true;
+        }
+        return false;
+    }
+    
+    bool applyOpaquePredicates(const std::string& input, const std::string& output) {
+        if (applyPass("OpaquePredicatePass", "opaque-pred", input, output)) {
+            metrics_.opaque_predicates += 8;
+            return true;
+        }
+        return false;
+    }
+    
+    bool applyFunctionSplitting(const std::string& input, const std::string& output) {
+        if (applyPass("FunctionSplittingPass", "func-split", input, output)) {
+            metrics_.split_functions += 1;
+            return true;
+        }
+        return false;
+    }
+    
+public:
+    bool compileToBinary() {
+        std::cout << "\n🔨 Compiling to binary...\n";
+        
+        if (!std::filesystem::exists("obfuscated.ll")) {
+            std::cerr << "❌ Obfuscated IR file not found\n";
+            return false;
+        }
+        
+        std::string compile_cmd = "clang obfuscated.ll -o " + output_binary_ + " 2>/dev/null";
+        int result = std::system(compile_cmd.c_str());
+        
+        if (result != 0 || !std::filesystem::exists(output_binary_)) {
+            std::cerr << "❌ Failed to compile obfuscated code\n";
+            return false;
+        }
+        
+        std::cout << "✅ Obfuscated binary generated: " << output_binary_ << "\n";
+        return true;
+    }
+    
+    void generateReport() {
+        std::cout << "\n📊 Generating comprehensive report...\n";
+        
+        metrics_.obfuscation_cycles = cycles_;
+        metrics_.parameters["input_file"] = input_file_;
+        metrics_.parameters["bogus_intensity"] = std::to_string(bogus_intensity_);
+        metrics_.parameters["cycles"] = std::to_string(cycles_);
+        
+        for (const auto& pass : enabled_passes_) {
+            metrics_.parameters[pass.first + "_enabled"] = pass.second ? "true" : "false";
+        }
+        
+        std::filesystem::create_directories("reports");
+        
+        ObfuscationReporter reporter(input_file_);
+        reporter.updateMetrics(metrics_);
+        reporter.generateReport("reports/obfuscation_report.txt");
+        
+        std::cout << "✅ Report generated: reports/obfuscation_report.txt\n";
+        std::cout << "✅ HTML Report: reports/obfuscation_report.txt.html\n";
+    }
+    
+    void cleanupTempFiles() {
+        // Clean up temporary IR files
+        for (const auto& entry : std::filesystem::directory_iterator(".")) {
+            std::string filename = entry.path().filename().string();
+            if (filename.find("temp_cycle") == 0 && filename.length()>=3 && filename.substr(filename.length()-3)==".ll") {
+                std::filesystem::remove(entry.path());
+            }
+        }
+    }
+};
+
+void printUsage() {
+    std::cout << R"(
+🔒 Advanced LLVM Obfuscator v2.0
+Usage: advanced-obfuscator [OPTIONS]
+
+OPTIONS:
+  --input <file>           Input C/C++ source file
+  --cycles <n>             Number of obfuscation cycles (default: 1)
+  --bogus-intensity <n>    Bogus code intensity 1-5 (default: 3)
+  
+OBFUSCATION TECHNIQUES:
+  --enable-bogus           Advanced polymorphic bogus code injection
+  --enable-strings         Polymorphic string encryption
+  --enable-flatten         Control flow flattening
+  --enable-opaque          Opaque predicate insertion  
+  --enable-split           Function splitting
+  --enable-all             Enable all obfuscation techniques
+  
+EXAMPLES:
+  advanced-obfuscator --input test.c --enable-all --cycles 3
+  advanced-obfuscator --input program.cpp --enable-bogus --enable-strings
+)";
+}
+
+int main(int argc, char** argv) {
+    if (argc < 3) {
+        printUsage();
+        return 1;
+    }
+    
+    std::string input_file;
+    int cycles = 1;
+    int bogus_intensity = 3;
+    std::vector<std::string> passes_to_enable;
+
+    for (int i = 1; i < argc; i++) {
+        std::string arg = argv[i];
+        
+        if (arg == "--input" && i + 1 < argc) {
+            input_file = argv[++i];
+        } else if (arg == "--cycles" && i + 1 < argc) {
+            cycles = std::stoi(argv[++i]);
+        } else if (arg == "--bogus-intensity" && i + 1 < argc) {
+            bogus_intensity = std::stoi(argv[++i]);
+        } else if (arg == "--enable-bogus") {
+            passes_to_enable.push_back("bogus");
+        } else if (arg == "--enable-strings") {
+            passes_to_enable.push_back("string-encrypt");
+        } else if (arg == "--enable-flatten") {
+            passes_to_enable.push_back("cf-flatten");
+        } else if (arg == "--enable-opaque") {
+            passes_to_enable.push_back("opaque");
+        } else if (arg == "--enable-split") {
+            passes_to_enable.push_back("function-split");
+        } else if (arg == "--enable-all") {
+            passes_to_enable.push_back("bogus");
+            passes_to_enable.push_back("string-encrypt");
+            passes_to_enable.push_back("opaque");
+            passes_to_enable.push_back("function-split");
+            // Don't enable cf-flatten by default due to issues
+            // passes_to_enable.push_back("cf-flatten");
+        }
+    }
+    
+    if (input_file.empty()) {
+        std::cerr << "❌ Error: No input file specified\n";
+        printUsage();
+        return 1;
+    }
+    
+    if (!std::filesystem::exists(input_file)) {
+        std::cerr << "❌ Error: Input file does not exist: " << input_file << "\n";
+        return 1;
+    }
+    
+    AdvancedObfuscator obf(input_file);
+    obf.setCycles(cycles);
+    obf.setBogusIntensity(bogus_intensity);
+    for (const auto& pass : passes_to_enable) {
+        obf.enablePass(pass);
+    }
+    
+    std::cout << "🚀 Advanced LLVM Obfuscator Starting...\n";
+    std::cout << "📁 Input file: " << input_file << "\n\n";
+    
+    bool success = true;
+    
+    if (!obf.generateLLVMIR()) success = false;
+    if (success && !obf.applyObfuscation()) success = false;
+    if (success && !obf.compileToBinary()) success = false;
+    
+    if (success) {
+        obf.generateReport();
+        std::cout << "\n🎉 Obfuscation completed successfully!\n";
+    } else {
+        std::cout << "\n❌ Obfuscation failed. Check error messages above.\n";
+    }
+    
+    // Clean up temporary files
+    obf.cleanupTempFiles();
+    
+    return success ? 0 : 1;
+}

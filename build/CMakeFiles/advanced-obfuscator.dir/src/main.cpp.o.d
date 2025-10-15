@@ -1,5 +1,5 @@
 CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o: \
-  /home/mitva/advanced-llvm-obfuscator/src/main.cpp \
+  /home/mohini/LLVMObfuscation/src/main.cpp \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/iostream \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/requires_hosted.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/c++config.h \
@@ -229,4 +229,4 @@ CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_multimap.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/erase_if.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/chrono \
-  /home/mitva/advanced-llvm-obfuscator/src/ObfuscationReporter.h
+  /home/mohini/LLVMObfuscation/src/ObfuscationReporter.h

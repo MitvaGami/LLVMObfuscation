@@ -1,5 +1,5 @@
 CMakeFiles/AdvancedBogusPass.dir/passes/AdvancedBogusPass.cpp.o: \
-  /home/mitva/advanced-llvm-obfuscator/passes/AdvancedBogusPass.cpp \
+  /home/mohini/LLVMObfuscation/passes/AdvancedBogusPass.cpp \
   /usr/lib/llvm-18/include/llvm/IR/Function.h \
   /usr/lib/llvm-18/include/llvm/ADT/DenseSet.h \
   /usr/lib/llvm-18/include/llvm/ADT/DenseMap.h \

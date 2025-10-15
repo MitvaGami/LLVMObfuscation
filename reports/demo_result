@@ -1,0 +1,54 @@
+=== ADVANCED LLVM OBFUSCATION REPORT ===
+Generated: 2025-10-15 14:36:23
+
+INPUT PARAMETERS:
+  bogus_control_flow_aggressiveness: 0.800000
+  bogus_control_flow_enabled: true
+  bogus_control_flow_intensity: 4
+  control_flow_flattening_aggressiveness: 1.000000
+  control_flow_flattening_enabled: true
+  control_flow_flattening_intensity: 5
+  input_file: test/sih_demo.c
+  instruction_substitution_aggressiveness: 0.700000
+  instruction_substitution_enabled: true
+  instruction_substitution_intensity: 3
+  instruction_substitutions_cycle_1: 3
+  instruction_substitutions_cycle_2: 8
+  instruction_substitutions_total: 11
+  max_runtime_overhead: 200.000000
+  max_size_increase: 300.000000
+  opaque_predicates_aggressiveness: 0.400000
+  opaque_predicates_enabled: true
+  opaque_predicates_intensity: 2
+  string_encryption_aggressiveness: 0.500000
+  string_encryption_enabled: true
+  string_encryption_intensity: 3
+  target_arch: x64
+  target_platform: linux
+
+OBFUSCATION METRICS:
+  Obfuscation Cycles: 2
+  Bogus Instructions Added: 837
+  Instruction Substitutions (Total): 11
+  Instruction Substitutions (Per Cycle): c1=3, c2=8
+  Strings Encrypted: 39
+  Fake Loops Inserted: 0
+  Functions Flattened: 11
+  Opaque Predicates Added: 199
+
+FILE SIZE ANALYSIS:
+  Original Size: 1600 bytes
+  Obfuscated Size: 25856 bytes
+  Size Increase: 1516.00%
+
+PERFORMANCE IMPACT:
+  Estimated Execution Overhead: 0.00%
+
+PRACTICAL EVALUATION METRICS:
+  Decompiler Intelligibility (qualitative): N/A
+  Decompiler Intelligibility (score 0-100): N/A
+  Red-Team Recovery Time (minutes): N/A
+  Instruction Entropy (bits): N/A
+  CFG Edge Density (edges/nodes): N/A
+  Similarity Original vs Decompiled (0-100): N/A
+  Automated Deobfuscator Success Rate (%): N/A

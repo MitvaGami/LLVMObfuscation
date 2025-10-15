@@ -20,7 +20,7 @@ fi
 
 # Test 2: Check if passes are built
 echo "🔍 Test 2: Checking LLVM passes..."
-PASSES=("AdvancedBogusPass.so" "PolymorphicStringPass.so" "CFFlattening.so" "OpaquePredicatePass.so" "FunctionSplittingPass.so")
+PASSES=("AdvancedBogusPass.so" "PolymorphicStringPass.so" "CFFlattening.so" "OpaquePredicatePass.so" "InstructionSubstitutionPass.so")
 for pass in "${PASSES[@]}"; do
     if [ -f "build/$pass" ]; then
         echo "✅ $pass found"
@@ -87,6 +87,14 @@ if opt -load-pass-plugin=./build/CFFlattening.so -passes=cf-flatten -S test.ll -
     rm test_cf.ll
 else
     echo "⚠️  Control Flow Flattening Pass test skipped"
+fi
+
+# Test Instruction Substitution
+if opt -load-pass-plugin=./build/InstructionSubstitutionPass.so -passes=inst-subst -S test.ll -o test_is.ll 2>/dev/null; then
+    echo "✅ Instruction Substitution Pass working"
+    rm test_is.ll
+else
+    echo "⚠️  Instruction Substitution Pass test skipped"
 fi
 
 # Cleanup

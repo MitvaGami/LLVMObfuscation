@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mitva/advanced-llvm-obfuscator
+CMAKE_SOURCE_DIR = /home/mohini/LLVMObfuscation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mitva/advanced-llvm-obfuscator/build
+CMAKE_BINARY_DIR = /home/mohini/LLVMObfuscation/build
 
 # Utility rule file for RISCVTargetParserTableGen.
 
@@ -78,6 +78,6 @@ CMakeFiles/RISCVTargetParserTableGen.dir/clean:
 .PHONY : CMakeFiles/RISCVTargetParserTableGen.dir/clean
 
 CMakeFiles/RISCVTargetParserTableGen.dir/depend:
-	cd /home/mitva/advanced-llvm-obfuscator/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/mitva/advanced-llvm-obfuscator /home/mitva/advanced-llvm-obfuscator /home/mitva/advanced-llvm-obfuscator/build /home/mitva/advanced-llvm-obfuscator/build /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/RISCVTargetParserTableGen.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/mohini/LLVMObfuscation/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/mohini/LLVMObfuscation /home/mohini/LLVMObfuscation /home/mohini/LLVMObfuscation/build /home/mohini/LLVMObfuscation/build /home/mohini/LLVMObfuscation/build/CMakeFiles/RISCVTargetParserTableGen.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/RISCVTargetParserTableGen.dir/depend
 

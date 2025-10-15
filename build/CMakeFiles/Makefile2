@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mitva/advanced-llvm-obfuscator
+CMAKE_SOURCE_DIR = /home/mohini/LLVMObfuscation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mitva/advanced-llvm-obfuscator/build
+CMAKE_BINARY_DIR = /home/mohini/LLVMObfuscation/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -67,8 +67,9 @@ all: CMakeFiles/AdvancedBogusPass.dir/all
 all: CMakeFiles/PolymorphicStringPass.dir/all
 all: CMakeFiles/CFFlattening.dir/all
 all: CMakeFiles/OpaquePredicatePass.dir/all
-all: CMakeFiles/FunctionSplittingPass.dir/all
+all: CMakeFiles/InstructionSubstitutionPass.dir/all
 all: CMakeFiles/advanced-obfuscator.dir/all
+all: CMakeFiles/sih-obfuscator.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -84,8 +85,9 @@ clean: CMakeFiles/AdvancedBogusPass.dir/clean
 clean: CMakeFiles/PolymorphicStringPass.dir/clean
 clean: CMakeFiles/CFFlattening.dir/clean
 clean: CMakeFiles/OpaquePredicatePass.dir/clean
-clean: CMakeFiles/FunctionSplittingPass.dir/clean
+clean: CMakeFiles/InstructionSubstitutionPass.dir/clean
 clean: CMakeFiles/advanced-obfuscator.dir/clean
+clean: CMakeFiles/sih-obfuscator.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -95,14 +97,14 @@ clean: CMakeFiles/advanced-obfuscator.dir/clean
 CMakeFiles/intrinsics_gen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num= "Built target intrinsics_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num= "Built target intrinsics_gen"
 .PHONY : CMakeFiles/intrinsics_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/intrinsics_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/intrinsics_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/intrinsics_gen.dir/rule
 
 # Convenience name for target.
@@ -121,14 +123,14 @@ CMakeFiles/intrinsics_gen.dir/clean:
 CMakeFiles/omp_gen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/omp_gen.dir/build.make CMakeFiles/omp_gen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/omp_gen.dir/build.make CMakeFiles/omp_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num= "Built target omp_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num= "Built target omp_gen"
 .PHONY : CMakeFiles/omp_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/omp_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/omp_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/omp_gen.dir/rule
 
 # Convenience name for target.
@@ -147,14 +149,14 @@ CMakeFiles/omp_gen.dir/clean:
 CMakeFiles/acc_gen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/acc_gen.dir/build.make CMakeFiles/acc_gen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/acc_gen.dir/build.make CMakeFiles/acc_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num= "Built target acc_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num= "Built target acc_gen"
 .PHONY : CMakeFiles/acc_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/acc_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/acc_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/acc_gen.dir/rule
 
 # Convenience name for target.
@@ -173,14 +175,14 @@ CMakeFiles/acc_gen.dir/clean:
 CMakeFiles/RISCVTargetParserTableGen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISCVTargetParserTableGen.dir/build.make CMakeFiles/RISCVTargetParserTableGen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISCVTargetParserTableGen.dir/build.make CMakeFiles/RISCVTargetParserTableGen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num= "Built target RISCVTargetParserTableGen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num= "Built target RISCVTargetParserTableGen"
 .PHONY : CMakeFiles/RISCVTargetParserTableGen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RISCVTargetParserTableGen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RISCVTargetParserTableGen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/RISCVTargetParserTableGen.dir/rule
 
 # Convenience name for target.
@@ -199,14 +201,14 @@ CMakeFiles/RISCVTargetParserTableGen.dir/clean:
 CMakeFiles/AdvancedBogusPass.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AdvancedBogusPass.dir/build.make CMakeFiles/AdvancedBogusPass.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AdvancedBogusPass.dir/build.make CMakeFiles/AdvancedBogusPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=1,2 "Built target AdvancedBogusPass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=1,2 "Built target AdvancedBogusPass"
 .PHONY : CMakeFiles/AdvancedBogusPass.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/AdvancedBogusPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/AdvancedBogusPass.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/AdvancedBogusPass.dir/rule
 
 # Convenience name for target.
@@ -225,14 +227,14 @@ CMakeFiles/AdvancedBogusPass.dir/clean:
 CMakeFiles/PolymorphicStringPass.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PolymorphicStringPass.dir/build.make CMakeFiles/PolymorphicStringPass.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PolymorphicStringPass.dir/build.make CMakeFiles/PolymorphicStringPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=9,10 "Built target PolymorphicStringPass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=9,10 "Built target PolymorphicStringPass"
 .PHONY : CMakeFiles/PolymorphicStringPass.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/PolymorphicStringPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PolymorphicStringPass.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/PolymorphicStringPass.dir/rule
 
 # Convenience name for target.
@@ -251,14 +253,14 @@ CMakeFiles/PolymorphicStringPass.dir/clean:
 CMakeFiles/CFFlattening.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CFFlattening.dir/build.make CMakeFiles/CFFlattening.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CFFlattening.dir/build.make CMakeFiles/CFFlattening.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=3,4 "Built target CFFlattening"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=3,4 "Built target CFFlattening"
 .PHONY : CMakeFiles/CFFlattening.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/CFFlattening.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/CFFlattening.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/CFFlattening.dir/rule
 
 # Convenience name for target.
@@ -277,14 +279,14 @@ CMakeFiles/CFFlattening.dir/clean:
 CMakeFiles/OpaquePredicatePass.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpaquePredicatePass.dir/build.make CMakeFiles/OpaquePredicatePass.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpaquePredicatePass.dir/build.make CMakeFiles/OpaquePredicatePass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=7,8 "Built target OpaquePredicatePass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=7,8 "Built target OpaquePredicatePass"
 .PHONY : CMakeFiles/OpaquePredicatePass.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/OpaquePredicatePass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/OpaquePredicatePass.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/OpaquePredicatePass.dir/rule
 
 # Convenience name for target.
@@ -297,30 +299,30 @@ CMakeFiles/OpaquePredicatePass.dir/clean:
 .PHONY : CMakeFiles/OpaquePredicatePass.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/FunctionSplittingPass.dir
+# Target rules for target CMakeFiles/InstructionSubstitutionPass.dir
 
 # All Build rule for target.
-CMakeFiles/FunctionSplittingPass.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FunctionSplittingPass.dir/build.make CMakeFiles/FunctionSplittingPass.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FunctionSplittingPass.dir/build.make CMakeFiles/FunctionSplittingPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=5,6 "Built target FunctionSplittingPass"
-.PHONY : CMakeFiles/FunctionSplittingPass.dir/all
+CMakeFiles/InstructionSubstitutionPass.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/InstructionSubstitutionPass.dir/build.make CMakeFiles/InstructionSubstitutionPass.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/InstructionSubstitutionPass.dir/build.make CMakeFiles/InstructionSubstitutionPass.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=5,6 "Built target InstructionSubstitutionPass"
+.PHONY : CMakeFiles/InstructionSubstitutionPass.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/FunctionSplittingPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/FunctionSplittingPass.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
-.PHONY : CMakeFiles/FunctionSplittingPass.dir/rule
+CMakeFiles/InstructionSubstitutionPass.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/InstructionSubstitutionPass.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
+.PHONY : CMakeFiles/InstructionSubstitutionPass.dir/rule
 
 # Convenience name for target.
-FunctionSplittingPass: CMakeFiles/FunctionSplittingPass.dir/rule
-.PHONY : FunctionSplittingPass
+InstructionSubstitutionPass: CMakeFiles/InstructionSubstitutionPass.dir/rule
+.PHONY : InstructionSubstitutionPass
 
 # clean rule for target.
-CMakeFiles/FunctionSplittingPass.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FunctionSplittingPass.dir/build.make CMakeFiles/FunctionSplittingPass.dir/clean
-.PHONY : CMakeFiles/FunctionSplittingPass.dir/clean
+CMakeFiles/InstructionSubstitutionPass.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/InstructionSubstitutionPass.dir/build.make CMakeFiles/InstructionSubstitutionPass.dir/clean
+.PHONY : CMakeFiles/InstructionSubstitutionPass.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/advanced-obfuscator.dir
@@ -329,14 +331,14 @@ CMakeFiles/FunctionSplittingPass.dir/clean:
 CMakeFiles/advanced-obfuscator.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/advanced-obfuscator.dir/build.make CMakeFiles/advanced-obfuscator.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/advanced-obfuscator.dir/build.make CMakeFiles/advanced-obfuscator.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=11,12,13 "Built target advanced-obfuscator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=11,12,13 "Built target advanced-obfuscator"
 .PHONY : CMakeFiles/advanced-obfuscator.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/advanced-obfuscator.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/advanced-obfuscator.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : CMakeFiles/advanced-obfuscator.dir/rule
 
 # Convenience name for target.
@@ -347,6 +349,32 @@ advanced-obfuscator: CMakeFiles/advanced-obfuscator.dir/rule
 CMakeFiles/advanced-obfuscator.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/advanced-obfuscator.dir/build.make CMakeFiles/advanced-obfuscator.dir/clean
 .PHONY : CMakeFiles/advanced-obfuscator.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/sih-obfuscator.dir
+
+# All Build rule for target.
+CMakeFiles/sih-obfuscator.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=14,15,16,17 "Built target sih-obfuscator"
+.PHONY : CMakeFiles/sih-obfuscator.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/sih-obfuscator.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/sih-obfuscator.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
+.PHONY : CMakeFiles/sih-obfuscator.dir/rule
+
+# Convenience name for target.
+sih-obfuscator: CMakeFiles/sih-obfuscator.dir/rule
+.PHONY : sih-obfuscator
+
+# clean rule for target.
+CMakeFiles/sih-obfuscator.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/clean
+.PHONY : CMakeFiles/sih-obfuscator.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

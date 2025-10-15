@@ -1,1 +1,1 @@
-clang++ -fPIC -O3 -DNDEBUG -shared -Wl,-soname,FunctionSplittingPass.so -o FunctionSplittingPass.so CMakeFiles/FunctionSplittingPass.dir/passes/FunctionSplittingPass.cpp.o 
+clang++ -fPIC -shared -Wl,-soname,FunctionSplittingPass.so -o FunctionSplittingPass.so CMakeFiles/FunctionSplittingPass.dir/passes/FunctionSplittingPass.cpp.o 

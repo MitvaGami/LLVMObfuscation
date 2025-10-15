@@ -31,6 +31,19 @@ struct SIHObfuscationMetrics {
     int function_splits = 0;
     int symbol_strippings = 0;
     int anti_disassembly_insertions = 0;
+
+    // Instruction substitution metrics
+    std::vector<int> instruction_substitutions_per_cycle; // per-cycle counts
+    int instruction_substitutions_total = 0;
+
+    // Practical evaluation metrics
+    std::string decompiler_intelligibility_qualitative;
+    double decompiler_intelligibility_score = -1.0;
+    double red_team_recovery_time_minutes = -1.0;
+    double instruction_entropy = -1.0;
+    double cfg_edge_density = -1.0;
+    double similarity_original_vs_decompiled = -1.0;
+    double automated_deobfuscator_success_rate = -1.0;
     
     // Performance metrics
     double size_increase_percentage = 0.0;

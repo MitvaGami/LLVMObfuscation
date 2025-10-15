@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <limits>
+#include <fstream>
 #include "ObfuscationReporter.h"
 
 // Enhanced configuration structure for SIH requirements
@@ -50,6 +51,64 @@ struct SIHConfiguration {
 
 class SIHObfuscator {
 private:
+    void parseAndAccumulateMetrics(const std::string& pass, const std::string& logPath, int cycle) {
+        std::ifstream in(logPath);
+        if (!in.good()) return;
+        std::string line;
+        while (std::getline(in, line)) {
+            if (pass == "cf-flatten") {
+                // Example: CFFlattening: Flattened 3 functions
+                auto pos = line.find("Flattened ");
+                if (pos != std::string::npos) {
+                    pos += std::string("Flattened ").size();
+                    size_t end = line.find(' ', pos);
+                    int n = std::stoi(line.substr(pos, end - pos));
+                    metrics_.flattened_functions += n;
+                }
+            } else if (pass == "advanced-bogus") {
+                // Example: AdvancedBogusPass: Added 127 bogus instructions
+                auto pos = line.find("Added ");
+                if (pos != std::string::npos) {
+                    pos += std::string("Added ").size();
+                    size_t end = line.find(' ', pos);
+                    int n = std::stoi(line.substr(pos, end - pos));
+                    metrics_.bogus_instructions += n;
+                }
+            } else if (pass == "poly-string") {
+                // Example: PolymorphicStringPass: Encrypted 13 strings
+                auto pos = line.find("Encrypted ");
+                if (pos != std::string::npos) {
+                    pos += std::string("Encrypted ").size();
+                    size_t end = line.find(' ', pos);
+                    int n = std::stoi(line.substr(pos, end - pos));
+                    metrics_.encrypted_strings += n;
+                }
+            } else if (pass == "opaque-pred") {
+                // Example: OpaquePredicatePass: Added 55 opaque predicates
+                auto pos = line.find("Added ");
+                if (pos != std::string::npos) {
+                    pos += std::string("Added ").size();
+                    size_t end = line.find(' ', pos);
+                    int n = std::stoi(line.substr(pos, end - pos));
+                    metrics_.opaque_predicates += n;
+                }
+            } else if (pass == "inst-subst") {
+                // Example line from pass: InstructionSubstitution: Applied 7 substitutions
+                auto pos = line.find("Applied ");
+                if (pos != std::string::npos) {
+                    pos += std::string("Applied ").size();
+                    size_t end = line.find(' ', pos);
+                    int n = std::stoi(line.substr(pos, end - pos));
+                    if ((int)metrics_.instruction_substitutions_per_cycle.size() <= cycle) {
+                        metrics_.instruction_substitutions_per_cycle.resize(cycle + 1, 0);
+                    }
+                    metrics_.instruction_substitutions_per_cycle[cycle] += n;
+                    metrics_.instruction_substitutions_total += n;
+                    metrics_.parameters["instruction_substitutions_total"] = std::to_string(metrics_.instruction_substitutions_total);
+                }
+            }
+        }
+    }
     std::string input_file_;
     SIHConfiguration config_;
     ObfuscationMetrics metrics_;
@@ -126,10 +185,7 @@ private:
             "Bogus Control Flow", 
             "String Encryption",
             "Instruction Substitution",
-            "Opaque Predicates",
-            "Function Splitting",
-            "Symbol Stripping",
-            "Anti-Disassembly"
+            "Opaque Predicates"
         };
         
         std::vector<std::string> technique_keys = {
@@ -137,10 +193,7 @@ private:
             "bogus_control_flow",
             "string_encryption", 
             "instruction_substitution",
-            "opaque_predicates",
-            "function_splitting",
-            "symbol_stripping",
-            "anti_disassembly"
+            "opaque_predicates"
         };
         
         for (size_t i = 0; i < technique_names.size(); i++) {
@@ -193,13 +246,19 @@ private:
         std::cout << "Report File: " << config_.report_file << "\n";
         
         std::cout << "\nEnabled Techniques:\n";
-        for (const auto& [name, config] : config_.techniques) {
-            if (config.enabled) {
-                std::cout << "  ✓ " << name << " (intensity: " << config.intensity 
-                         << ", aggressiveness: " << std::fixed << std::setprecision(1) 
-                         << config.aggressiveness << ")\n";
+        auto printIf = [&](const std::string& key, const std::string& label){
+            const auto& t = config_.techniques[key];
+            if (t.enabled) {
+                std::cout << "  ✓ " << label << " (intensity: " << t.intensity
+                          << ", aggressiveness: " << std::fixed << std::setprecision(1)
+                          << t.aggressiveness << ")\n";
             }
-        }
+        };
+        printIf("control_flow_flattening", "control_flow_flattening");
+        printIf("bogus_control_flow", "bogus_control_flow");
+        printIf("instruction_substitution", "instruction_substitution");
+        printIf("string_encryption", "string_encryption");
+        printIf("opaque_predicates", "opaque_predicates");
     }
     
 public:
@@ -238,17 +297,36 @@ public:
         // Build clang command with target specifications
         std::string clang_cmd = "clang -S -emit-llvm";
         
+        // Map architecture to valid LLVM target triple arch names
+        std::string archTriple = config_.target_arch;
+        if (archTriple == "x64") archTriple = "x86_64";
+        else if (archTriple == "x86") archTriple = "i386";
+        
         // Add target-specific flags
         if (config_.target_platform == "windows") {
-            clang_cmd += " -target " + config_.target_arch + "-pc-windows-msvc";
+            clang_cmd += " -target " + archTriple + "-pc-windows-msvc";
         } else {
-            clang_cmd += " -target " + config_.target_arch + "-pc-linux-gnu";
+            clang_cmd += " -target " + archTriple + "-pc-linux-gnu";
         }
         
-        clang_cmd += " \"" + input_file_ + "\" -o input.ll 2>/dev/null";
+        clang_cmd += " \"" + input_file_ + "\" -o input.ll";
         
         std::cout << "Command: " << clang_cmd << "\n";
-        return std::system(clang_cmd.c_str()) == 0 && std::filesystem::exists("input.ll");
+        int rc = std::system(clang_cmd.c_str());
+        if (rc != 0 || !std::filesystem::exists("input.ll")) {
+            std::cout << "Primary IR generation failed. Trying fallback without explicit target...\n";
+            std::string fallback;
+            if (config_.target_platform == "linux" && config_.target_arch == "x86") {
+                // Try 32-bit mode on host if multilib is available
+                fallback = "clang -m32 -S -emit-llvm \"" + input_file_ + "\" -o input.ll";
+            } else {
+                // Host default triple
+                fallback = "clang -S -emit-llvm \"" + input_file_ + "\" -o input.ll";
+            }
+            std::cout << "Command: " << fallback << "\n";
+            rc = std::system(fallback.c_str());
+        }
+        return rc == 0 && std::filesystem::exists("input.ll");
     }
     
     bool applyObfuscation() {
@@ -258,10 +336,12 @@ public:
         std::string current_ir = "input.ll";
         bool success = false;
         
+        std::cout << "\n🔒 Applying enabled passes...\n";
         for (int cycle = 0; cycle < config_.num_cycles; cycle++) {
             std::cout << "\n--- Cycle " << (cycle + 1) << "/" << config_.num_cycles << " ---\n";
             
-            // Apply each enabled technique
+            // Apply each enabled technique in a safer order:
+            // 1) Control Flow Flattening
             if (config_.techniques["control_flow_flattening"].enabled) {
                 std::string next_ir = "temp_cf_" + std::to_string(cycle) + ".ll";
                 if (applyPass("CFFlattening", "cf-flatten", current_ir, next_ir, cycle)) {
@@ -269,7 +349,8 @@ public:
                     success = true;
                 }
             }
-            
+
+            // 2) Bogus Control Flow
             if (config_.techniques["bogus_control_flow"].enabled) {
                 std::string next_ir = "temp_bogus_" + std::to_string(cycle) + ".ll";
                 if (applyPass("AdvancedBogusPass", "advanced-bogus", current_ir, next_ir, cycle)) {
@@ -277,15 +358,17 @@ public:
                     success = true;
                 }
             }
-            
-            if (config_.techniques["string_encryption"].enabled) {
-                std::string next_ir = "temp_string_" + std::to_string(cycle) + ".ll";
-                if (applyPass("PolymorphicStringPass", "poly-string", current_ir, next_ir, cycle)) {
+
+            // 3) Instruction Substitution
+            if (config_.techniques["instruction_substitution"].enabled) {
+                std::string next_ir = "temp_is_" + std::to_string(cycle) + ".ll";
+                if (applyPass("InstructionSubstitutionPass", "inst-subst", current_ir, next_ir, cycle)) {
                     current_ir = next_ir;
                     success = true;
                 }
             }
-            
+
+            // 4) Opaque Predicates
             if (config_.techniques["opaque_predicates"].enabled) {
                 std::string next_ir = "temp_opaque_" + std::to_string(cycle) + ".ll";
                 if (applyPass("OpaquePredicatePass", "opaque-pred", current_ir, next_ir, cycle)) {
@@ -293,36 +376,53 @@ public:
                     success = true;
                 }
             }
-            
-            if (config_.techniques["function_splitting"].enabled) {
-                std::string next_ir = "temp_split_" + std::to_string(cycle) + ".ll";
-                if (applyPass("FunctionSplittingPass", "func-split", current_ir, next_ir, cycle)) {
+
+            // 5) String Encryption (order-independent)
+            if (config_.techniques["string_encryption"].enabled) {
+                std::string next_ir = "temp_string_" + std::to_string(cycle) + ".ll";
+                if (applyPass("PolymorphicStringPass", "poly-string", current_ir, next_ir, cycle)) {
                     current_ir = next_ir;
                     success = true;
                 }
             }
         }
         
-        // Copy final result
-        std::filesystem::copy_file(current_ir, "obfuscated.ll");
+        // Only produce obfuscated.ll if at least one pass succeeded
+        if (success && std::filesystem::exists(current_ir)) {
+            std::error_code ec;
+            std::filesystem::copy_file(current_ir, "obfuscated.ll",
+                                       std::filesystem::copy_options::overwrite_existing, ec);
+        } else {
+            std::cout << "No obfuscation pass produced output; aborting.\n";
+        }
         return success;
     }
     
 private:
     bool applyPass(const std::string& plugin, const std::string& pass, 
                    const std::string& input, const std::string& output, int cycle) {
-        std::string cmd = "opt -load-pass-plugin=./build/" + plugin + ".so -passes=" + pass + 
-                         " -S " + input + " -o " + output + " 2>/dev/null";
-        
-        if (std::system(cmd.c_str()) == 0 && std::filesystem::exists(output)) {
-            auto size = std::filesystem::file_size(output);
+        // Build absolute paths for reliability
+        const auto cwd = std::filesystem::current_path();
+        const std::string pluginPath = (cwd / ("build/" + plugin + ".so")).string();
+        const std::string inputPath = (std::filesystem::path(input).is_absolute() ? input : (cwd / input).string());
+        const std::string outputPath = (std::filesystem::path(output).is_absolute() ? output : (cwd / output).string());
+
+        // Log file to capture pass stdout for metrics parsing
+        const std::string logPath = (cwd / ("pass_" + pass + "_cycle_" + std::to_string(cycle) + ".log")).string();
+        std::string cmd = "opt -load-pass-plugin=" + pluginPath + " -passes=" + pass +
+                          " -S \"" + inputPath + "\" -o \"" + outputPath + "\" > \"" + logPath + "\" 2>&1";
+        std::cout << "Running: " << cmd << "\n";
+
+        if (std::system(cmd.c_str()) == 0 && std::filesystem::exists(outputPath)) {
+            auto size = std::filesystem::file_size(outputPath);
             if (size > 0) {
                 std::cout << "  ✓ " << pass << " applied (cycle " << (cycle + 1) << ")\n";
-                updateMetricsForPass(pass, cycle);
+                // Prefer precise pass-reported counts
+                parseAndAccumulateMetrics(pass, logPath, cycle);
                 return true;
             }
         }
-        std::cout << "  ⚠ " << pass << " skipped (cycle " << (cycle + 1) << ")\n";
+        std::cout << "  ⚠ " << pass << " skipped or failed (cycle " << (cycle + 1) << ")\n";
         return false;
     }
     
@@ -344,12 +444,18 @@ private:
                 metrics_.fake_loops += 2 * intensity * aggressiveness;
             } else if (pass == "poly-string") {
                 metrics_.encrypted_strings += 3 * intensity * aggressiveness;
+            } else if (pass == "inst-subst") {
+                // Set a parameter; precise count comes from log parsing
+                int approx = 2 * intensity * aggressiveness;
+                int current = 0;
+                if (metrics_.parameters.count("instruction_substitutions_total")) {
+                    current = std::stoi(metrics_.parameters["instruction_substitutions_total"]);
+                }
+                metrics_.parameters["instruction_substitutions_total"] = std::to_string(current + approx);
             } else if (pass == "opaque-pred") {
                 metrics_.opaque_predicates += 5 * intensity * aggressiveness;
             } else if (pass == "cf-flatten") {
                 metrics_.flattened_functions += 1 * intensity * aggressiveness;
-            } else if (pass == "func-split") {
-                metrics_.split_functions += 1 * intensity * aggressiveness;
             }
         }
     }
@@ -359,22 +465,64 @@ public:
         std::cout << "\n🔨 COMPILING TO BINARY\n";
         std::cout << "=====================\n";
         
-        std::string cmd = "clang obfuscated.ll -o " + config_.output_binary;
-        
-        // Add platform-specific flags
+        // Map arch
+        std::string archTriple = config_.target_arch;
+        if (archTriple == "x64") archTriple = "x86_64";
+        else if (archTriple == "x86") archTriple = "i386";
+
+        // First attempt: direct clang link from LLVM IR with appropriate flags
+        std::string cmd;
         if (config_.target_platform == "windows") {
-            cmd += " -target " + config_.target_arch + "-pc-windows-msvc";
+            // Prefer MinGW on Linux for Windows targets if available
+            std::string mingw = (archTriple == "i386") ? "i686-w64-mingw32" : "x86_64-w64-mingw32";
+            std::string mingwClang = "clang --target=" + mingw;
+            cmd = mingwClang + " obfuscated.ll -o " + config_.output_binary + " -Wl,--subsystem,console";
+        } else {
+            if (archTriple == "i386") {
+                cmd = "clang -m32 obfuscated.ll -o " + config_.output_binary;
+            } else {
+                cmd = "clang -target " + archTriple + "-pc-linux-gnu obfuscated.ll -o " + config_.output_binary;
+            }
         }
-        
-        cmd += " 2>/dev/null";
-        
         std::cout << "Command: " << cmd << "\n";
-        bool success = std::system(cmd.c_str()) == 0 && std::filesystem::exists(config_.output_binary);
+        int rc = std::system(cmd.c_str());
+        bool success = (rc == 0) && std::filesystem::exists(config_.output_binary);
+        
+        // Fallback: llc to object, then link with clang
+        if (!success) {
+            std::cout << "Primary link failed. Trying llc + clang fallback...\n";
+            std::string objFile = "obf.o";
+            std::string llcCmd;
+            if (config_.target_platform == "windows") {
+                std::string mingw = (archTriple == "i386") ? "i686-w64-mingw32" : "x86_64-w64-mingw32";
+                llcCmd = "llc -filetype=obj -mtriple=" + mingw + " obfuscated.ll -o " + objFile;
+            } else {
+                llcCmd = "llc -filetype=obj -mtriple=" + archTriple + "-pc-linux-gnu obfuscated.ll -o " + objFile;
+            }
+            std::cout << "Command: " << llcCmd << "\n";
+            rc = std::system(llcCmd.c_str());
+            if (rc == 0 && std::filesystem::exists(objFile)) {
+                std::string linkCmd;
+                if (config_.target_platform == "windows") {
+                    std::string mingw = (archTriple == "i386") ? "i686-w64-mingw32" : "x86_64-w64-mingw32";
+                    linkCmd = "clang --target=" + mingw + " " + objFile + " -o " + config_.output_binary + " -Wl,--subsystem,console";
+                } else {
+                    if (archTriple == "i386") linkCmd = "clang -m32 " + objFile + " -o " + config_.output_binary;
+                    else linkCmd = "clang " + objFile + " -o " + config_.output_binary;
+                }
+                std::cout << "Command: " << linkCmd << "\n";
+                rc = std::system(linkCmd.c_str());
+                success = (rc == 0) && std::filesystem::exists(config_.output_binary);
+            }
+        }
         
         if (success) {
             std::cout << "✓ Binary generated: " << config_.output_binary << "\n";
         } else {
             std::cout << "❌ Binary compilation failed\n";
+            if (config_.target_platform == "windows") {
+                std::cout << "Hint: On Linux, install MinGW toolchain for Windows targets: sudo apt install -y clang binutils-mingw-w64 gcc-mingw-w64\n";
+            }
         }
         
         return success;
@@ -390,13 +538,25 @@ public:
         metrics_.parameters["target_arch"] = config_.target_arch;
         metrics_.parameters["max_size_increase"] = std::to_string(config_.max_size_increase);
         metrics_.parameters["max_runtime_overhead"] = std::to_string(config_.max_runtime_overhead);
+        // Expose per-cycle substitutions in parameters for legacy consumers
+        if (!metrics_.instruction_substitutions_per_cycle.empty()) {
+            for (size_t i = 0; i < metrics_.instruction_substitutions_per_cycle.size(); ++i) {
+                metrics_.parameters["instruction_substitutions_cycle_" + std::to_string(i+1)] =
+                    std::to_string(metrics_.instruction_substitutions_per_cycle[i]);
+            }
+            metrics_.parameters["instruction_substitutions_total"] = std::to_string(metrics_.instruction_substitutions_total);
+        }
         
-        // Add technique-specific parameters
+        // Add technique-specific parameters (only supported techniques)
         for (const auto& [name, tech_config] : config_.techniques) {
-            if (tech_config.enabled) {
-                metrics_.parameters[name + "_enabled"] = "true";
-                metrics_.parameters[name + "_intensity"] = std::to_string(tech_config.intensity);
-                metrics_.parameters[name + "_aggressiveness"] = std::to_string(tech_config.aggressiveness);
+            if (name == "control_flow_flattening" || name == "bogus_control_flow" ||
+                name == "string_encryption" || name == "instruction_substitution" ||
+                name == "opaque_predicates") {
+                if (tech_config.enabled) {
+                    metrics_.parameters[name + "_enabled"] = "true";
+                    metrics_.parameters[name + "_intensity"] = std::to_string(tech_config.intensity);
+                    metrics_.parameters[name + "_aggressiveness"] = std::to_string(tech_config.aggressiveness);
+                }
             }
         }
         
@@ -414,6 +574,21 @@ public:
         // Generate enhanced report
         ObfuscationReporter reporter(input_file_);
         reporter.updateMetrics(metrics_);
+        // Best-effort placeholders for practical evaluation metrics (compute externally if needed)
+        if (!metrics_.parameters.count("decompiler_intelligibility_qualitative"))
+            metrics_.decompiler_intelligibility_qualitative = "N/A";
+        if (!metrics_.parameters.count("decompiler_intelligibility_score"))
+            metrics_.decompiler_intelligibility_score = -1.0;
+        if (!metrics_.parameters.count("red_team_recovery_time_minutes"))
+            metrics_.red_team_recovery_time_minutes = -1.0;
+        if (!metrics_.parameters.count("instruction_entropy"))
+            metrics_.instruction_entropy = -1.0;
+        if (!metrics_.parameters.count("cfg_edge_density"))
+            metrics_.cfg_edge_density = -1.0;
+        if (!metrics_.parameters.count("similarity_original_vs_decompiled"))
+            metrics_.similarity_original_vs_decompiled = -1.0;
+        if (!metrics_.parameters.count("automated_deobfuscator_success_rate"))
+            metrics_.automated_deobfuscator_success_rate = -1.0;
         reporter.generateReport("reports/" + config_.report_file);
         
         std::cout << "✅ SIH Report generated!\n";
@@ -435,6 +610,15 @@ public:
         std::cout << "d. Obfuscation Cycles: " << metrics_.obfuscation_cycles << "\n";
         std::cout << "e. String Encryption: " << metrics_.encrypted_strings << " strings\n";
         std::cout << "f. Fake Loops Inserted: " << metrics_.fake_loops << "\n";
+        if (!metrics_.instruction_substitutions_per_cycle.empty()) {
+            std::cout << "h. Instruction Substitutions (per cycle): ";
+            for (size_t i = 0; i < metrics_.instruction_substitutions_per_cycle.size(); ++i) {
+                if (i) std::cout << ", ";
+                std::cout << "cycle " << (i + 1) << ": " << metrics_.instruction_substitutions_per_cycle[i];
+            }
+            std::cout << "\n";
+            std::cout << "   Total Instruction Substitutions: " << metrics_.instruction_substitutions_total << "\n";
+        }
         
         if (metrics_.original_size > 0) {
             double increase = ((double)metrics_.obfuscated_size / metrics_.original_size - 1) * 100;
@@ -451,13 +635,12 @@ public:
             "input.ll", "obfuscated.ll"
         };
         
-        // Add cycle-specific temp files
+        // Add cycle-specific temp files (only supported techniques)
         for (int i = 0; i < config_.num_cycles; i++) {
             temp_files.push_back("temp_cf_" + std::to_string(i) + ".ll");
             temp_files.push_back("temp_bogus_" + std::to_string(i) + ".ll");
             temp_files.push_back("temp_string_" + std::to_string(i) + ".ll");
             temp_files.push_back("temp_opaque_" + std::to_string(i) + ".ll");
-            temp_files.push_back("temp_split_" + std::to_string(i) + ".ll");
         }
         
         for (const auto& file : temp_files) {
@@ -485,6 +668,7 @@ int main(int argc, char** argv) {
     }
     
     SIHObfuscator obf(input_file);
+    bool success = false;
     
     try {
         obf.collectUserInput();
@@ -492,7 +676,7 @@ int main(int argc, char** argv) {
         std::cout << "\n🚀 STARTING OBFUSCATION PROCESS\n";
         std::cout << "================================\n";
         
-        bool success = obf.generateLLVMIR();
+        success = obf.generateLLVMIR();
         if (success) success = obf.applyObfuscation();
         if (success) success = obf.compileToBinary();
         

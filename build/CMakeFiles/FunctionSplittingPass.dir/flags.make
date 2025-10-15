@@ -6,5 +6,5 @@ CXX_DEFINES = -DFunctionSplittingPass_EXPORTS
 
 CXX_INCLUDES = -I/usr/lib/llvm-18/include
 
-CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17 -fPIC -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/usr/lib/llvm-18/include -std=c++17 -fno-exceptions -funwind-tables
+CXX_FLAGS = -std=gnu++17 -fPIC -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/usr/lib/llvm-18/include -std=c++17 -fno-exceptions -funwind-tables
 

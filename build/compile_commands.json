@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++ -DAdvancedBogusPass_EXPORTS -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -fPIC -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/usr/lib/llvm-18/include -std=c++17 -fno-exceptions -funwind-tables -o CMakeFiles/AdvancedBogusPass.dir/passes/AdvancedBogusPass.cpp.o -c /home/mohini/LLVMObfuscation/passes/AdvancedBogusPass.cpp",
+  "file": "/home/mohini/LLVMObfuscation/passes/AdvancedBogusPass.cpp",
+  "output": "CMakeFiles/AdvancedBogusPass.dir/passes/AdvancedBogusPass.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++ -DPolymorphicStringPass_EXPORTS -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -fPIC -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/usr/lib/llvm-18/include -std=c++17 -fno-exceptions -funwind-tables -o CMakeFiles/PolymorphicStringPass.dir/passes/PolymorphicStringPass.cpp.o -c /home/mohini/LLVMObfuscation/passes/PolymorphicStringPass.cpp",
+  "file": "/home/mohini/LLVMObfuscation/passes/PolymorphicStringPass.cpp",
+  "output": "CMakeFiles/PolymorphicStringPass.dir/passes/PolymorphicStringPass.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++ -DCFFlattening_EXPORTS -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -fPIC -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/usr/lib/llvm-18/include -std=c++17 -fno-exceptions -funwind-tables -o CMakeFiles/CFFlattening.dir/passes/CFFlattening.cpp.o -c /home/mohini/LLVMObfuscation/passes/CFFlattening.cpp",
+  "file": "/home/mohini/LLVMObfuscation/passes/CFFlattening.cpp",
+  "output": "CMakeFiles/CFFlattening.dir/passes/CFFlattening.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++ -DOpaquePredicatePass_EXPORTS -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -fPIC -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/usr/lib/llvm-18/include -std=c++17 -fno-exceptions -funwind-tables -o CMakeFiles/OpaquePredicatePass.dir/passes/OpaquePredicatePass.cpp.o -c /home/mohini/LLVMObfuscation/passes/OpaquePredicatePass.cpp",
+  "file": "/home/mohini/LLVMObfuscation/passes/OpaquePredicatePass.cpp",
+  "output": "CMakeFiles/OpaquePredicatePass.dir/passes/OpaquePredicatePass.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++ -DInstructionSubstitutionPass_EXPORTS -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -fPIC -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -I/usr/lib/llvm-18/include -std=c++17 -fno-exceptions -funwind-tables -o CMakeFiles/InstructionSubstitutionPass.dir/passes/InstructionSubstitutionPass.cpp.o -c /home/mohini/LLVMObfuscation/passes/InstructionSubstitutionPass.cpp",
+  "file": "/home/mohini/LLVMObfuscation/passes/InstructionSubstitutionPass.cpp",
+  "output": "CMakeFiles/InstructionSubstitutionPass.dir/passes/InstructionSubstitutionPass.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++  -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o -c /home/mohini/LLVMObfuscation/src/main.cpp",
+  "file": "/home/mohini/LLVMObfuscation/src/main.cpp",
+  "output": "CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++  -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o -c /home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp",
+  "file": "/home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp",
+  "output": "CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++  -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/sih-obfuscator.dir/src/main_enhanced.cpp.o -c /home/mohini/LLVMObfuscation/src/main_enhanced.cpp",
+  "file": "/home/mohini/LLVMObfuscation/src/main_enhanced.cpp",
+  "output": "CMakeFiles/sih-obfuscator.dir/src/main_enhanced.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++  -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/sih-obfuscator.dir/src/SIHObfuscationReporter.cpp.o -c /home/mohini/LLVMObfuscation/src/SIHObfuscationReporter.cpp",
+  "file": "/home/mohini/LLVMObfuscation/src/SIHObfuscationReporter.cpp",
+  "output": "CMakeFiles/sih-obfuscator.dir/src/SIHObfuscationReporter.cpp.o"
+},
+{
+  "directory": "/home/mohini/LLVMObfuscation/build",
+  "command": "clang++  -I/usr/lib/llvm-18/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/sih-obfuscator.dir/src/ObfuscationReporter.cpp.o -c /home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp",
+  "file": "/home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp",
+  "output": "CMakeFiles/sih-obfuscator.dir/src/ObfuscationReporter.cpp.o"
+}
+]

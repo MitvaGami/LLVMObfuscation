@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mitva/advanced-llvm-obfuscator
+CMAKE_SOURCE_DIR = /home/mohini/LLVMObfuscation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mitva/advanced-llvm-obfuscator/build
+CMAKE_BINARY_DIR = /home/mohini/LLVMObfuscation/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles /home/mitva/advanced-llvm-obfuscator/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles /home/mohini/LLVMObfuscation/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mohini/LLVMObfuscation/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -221,17 +221,17 @@ OpaquePredicatePass/fast:
 .PHONY : OpaquePredicatePass/fast
 
 #=============================================================================
-# Target rules for targets named FunctionSplittingPass
+# Target rules for targets named InstructionSubstitutionPass
 
 # Build rule for target.
-FunctionSplittingPass: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 FunctionSplittingPass
-.PHONY : FunctionSplittingPass
+InstructionSubstitutionPass: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 InstructionSubstitutionPass
+.PHONY : InstructionSubstitutionPass
 
 # fast build rule for target.
-FunctionSplittingPass/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FunctionSplittingPass.dir/build.make CMakeFiles/FunctionSplittingPass.dir/build
-.PHONY : FunctionSplittingPass/fast
+InstructionSubstitutionPass/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/InstructionSubstitutionPass.dir/build.make CMakeFiles/InstructionSubstitutionPass.dir/build
+.PHONY : InstructionSubstitutionPass/fast
 
 #=============================================================================
 # Target rules for targets named advanced-obfuscator
@@ -245,6 +245,19 @@ advanced-obfuscator: cmake_check_build_system
 advanced-obfuscator/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/advanced-obfuscator.dir/build.make CMakeFiles/advanced-obfuscator.dir/build
 .PHONY : advanced-obfuscator/fast
+
+#=============================================================================
+# Target rules for targets named sih-obfuscator
+
+# Build rule for target.
+sih-obfuscator: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sih-obfuscator
+.PHONY : sih-obfuscator
+
+# fast build rule for target.
+sih-obfuscator/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/build
+.PHONY : sih-obfuscator/fast
 
 passes/AdvancedBogusPass.o: passes/AdvancedBogusPass.cpp.o
 .PHONY : passes/AdvancedBogusPass.o
@@ -294,29 +307,29 @@ passes/CFFlattening.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CFFlattening.dir/build.make CMakeFiles/CFFlattening.dir/passes/CFFlattening.cpp.s
 .PHONY : passes/CFFlattening.cpp.s
 
-passes/FunctionSplittingPass.o: passes/FunctionSplittingPass.cpp.o
-.PHONY : passes/FunctionSplittingPass.o
+passes/InstructionSubstitutionPass.o: passes/InstructionSubstitutionPass.cpp.o
+.PHONY : passes/InstructionSubstitutionPass.o
 
 # target to build an object file
-passes/FunctionSplittingPass.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FunctionSplittingPass.dir/build.make CMakeFiles/FunctionSplittingPass.dir/passes/FunctionSplittingPass.cpp.o
-.PHONY : passes/FunctionSplittingPass.cpp.o
+passes/InstructionSubstitutionPass.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/InstructionSubstitutionPass.dir/build.make CMakeFiles/InstructionSubstitutionPass.dir/passes/InstructionSubstitutionPass.cpp.o
+.PHONY : passes/InstructionSubstitutionPass.cpp.o
 
-passes/FunctionSplittingPass.i: passes/FunctionSplittingPass.cpp.i
-.PHONY : passes/FunctionSplittingPass.i
+passes/InstructionSubstitutionPass.i: passes/InstructionSubstitutionPass.cpp.i
+.PHONY : passes/InstructionSubstitutionPass.i
 
 # target to preprocess a source file
-passes/FunctionSplittingPass.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FunctionSplittingPass.dir/build.make CMakeFiles/FunctionSplittingPass.dir/passes/FunctionSplittingPass.cpp.i
-.PHONY : passes/FunctionSplittingPass.cpp.i
+passes/InstructionSubstitutionPass.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/InstructionSubstitutionPass.dir/build.make CMakeFiles/InstructionSubstitutionPass.dir/passes/InstructionSubstitutionPass.cpp.i
+.PHONY : passes/InstructionSubstitutionPass.cpp.i
 
-passes/FunctionSplittingPass.s: passes/FunctionSplittingPass.cpp.s
-.PHONY : passes/FunctionSplittingPass.s
+passes/InstructionSubstitutionPass.s: passes/InstructionSubstitutionPass.cpp.s
+.PHONY : passes/InstructionSubstitutionPass.s
 
 # target to generate assembly for a file
-passes/FunctionSplittingPass.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FunctionSplittingPass.dir/build.make CMakeFiles/FunctionSplittingPass.dir/passes/FunctionSplittingPass.cpp.s
-.PHONY : passes/FunctionSplittingPass.cpp.s
+passes/InstructionSubstitutionPass.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/InstructionSubstitutionPass.dir/build.make CMakeFiles/InstructionSubstitutionPass.dir/passes/InstructionSubstitutionPass.cpp.s
+.PHONY : passes/InstructionSubstitutionPass.cpp.s
 
 passes/OpaquePredicatePass.o: passes/OpaquePredicatePass.cpp.o
 .PHONY : passes/OpaquePredicatePass.o
@@ -372,6 +385,7 @@ src/ObfuscationReporter.o: src/ObfuscationReporter.cpp.o
 # target to build an object file
 src/ObfuscationReporter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/advanced-obfuscator.dir/build.make CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/ObfuscationReporter.cpp.o
 .PHONY : src/ObfuscationReporter.cpp.o
 
 src/ObfuscationReporter.i: src/ObfuscationReporter.cpp.i
@@ -380,6 +394,7 @@ src/ObfuscationReporter.i: src/ObfuscationReporter.cpp.i
 # target to preprocess a source file
 src/ObfuscationReporter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/advanced-obfuscator.dir/build.make CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/ObfuscationReporter.cpp.i
 .PHONY : src/ObfuscationReporter.cpp.i
 
 src/ObfuscationReporter.s: src/ObfuscationReporter.cpp.s
@@ -388,7 +403,32 @@ src/ObfuscationReporter.s: src/ObfuscationReporter.cpp.s
 # target to generate assembly for a file
 src/ObfuscationReporter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/advanced-obfuscator.dir/build.make CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/ObfuscationReporter.cpp.s
 .PHONY : src/ObfuscationReporter.cpp.s
+
+src/SIHObfuscationReporter.o: src/SIHObfuscationReporter.cpp.o
+.PHONY : src/SIHObfuscationReporter.o
+
+# target to build an object file
+src/SIHObfuscationReporter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/SIHObfuscationReporter.cpp.o
+.PHONY : src/SIHObfuscationReporter.cpp.o
+
+src/SIHObfuscationReporter.i: src/SIHObfuscationReporter.cpp.i
+.PHONY : src/SIHObfuscationReporter.i
+
+# target to preprocess a source file
+src/SIHObfuscationReporter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/SIHObfuscationReporter.cpp.i
+.PHONY : src/SIHObfuscationReporter.cpp.i
+
+src/SIHObfuscationReporter.s: src/SIHObfuscationReporter.cpp.s
+.PHONY : src/SIHObfuscationReporter.s
+
+# target to generate assembly for a file
+src/SIHObfuscationReporter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/SIHObfuscationReporter.cpp.s
+.PHONY : src/SIHObfuscationReporter.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -414,6 +454,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/advanced-obfuscator.dir/build.make CMakeFiles/advanced-obfuscator.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/main_enhanced.o: src/main_enhanced.cpp.o
+.PHONY : src/main_enhanced.o
+
+# target to build an object file
+src/main_enhanced.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/main_enhanced.cpp.o
+.PHONY : src/main_enhanced.cpp.o
+
+src/main_enhanced.i: src/main_enhanced.cpp.i
+.PHONY : src/main_enhanced.i
+
+# target to preprocess a source file
+src/main_enhanced.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/main_enhanced.cpp.i
+.PHONY : src/main_enhanced.cpp.i
+
+src/main_enhanced.s: src/main_enhanced.cpp.s
+.PHONY : src/main_enhanced.s
+
+# target to generate assembly for a file
+src/main_enhanced.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sih-obfuscator.dir/build.make CMakeFiles/sih-obfuscator.dir/src/main_enhanced.cpp.s
+.PHONY : src/main_enhanced.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -428,19 +492,20 @@ help:
 	@echo "... omp_gen"
 	@echo "... AdvancedBogusPass"
 	@echo "... CFFlattening"
-	@echo "... FunctionSplittingPass"
+	@echo "... InstructionSubstitutionPass"
 	@echo "... OpaquePredicatePass"
 	@echo "... PolymorphicStringPass"
 	@echo "... advanced-obfuscator"
+	@echo "... sih-obfuscator"
 	@echo "... passes/AdvancedBogusPass.o"
 	@echo "... passes/AdvancedBogusPass.i"
 	@echo "... passes/AdvancedBogusPass.s"
 	@echo "... passes/CFFlattening.o"
 	@echo "... passes/CFFlattening.i"
 	@echo "... passes/CFFlattening.s"
-	@echo "... passes/FunctionSplittingPass.o"
-	@echo "... passes/FunctionSplittingPass.i"
-	@echo "... passes/FunctionSplittingPass.s"
+	@echo "... passes/InstructionSubstitutionPass.o"
+	@echo "... passes/InstructionSubstitutionPass.i"
+	@echo "... passes/InstructionSubstitutionPass.s"
 	@echo "... passes/OpaquePredicatePass.o"
 	@echo "... passes/OpaquePredicatePass.i"
 	@echo "... passes/OpaquePredicatePass.s"
@@ -450,9 +515,15 @@ help:
 	@echo "... src/ObfuscationReporter.o"
 	@echo "... src/ObfuscationReporter.i"
 	@echo "... src/ObfuscationReporter.s"
+	@echo "... src/SIHObfuscationReporter.o"
+	@echo "... src/SIHObfuscationReporter.i"
+	@echo "... src/SIHObfuscationReporter.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/main_enhanced.o"
+	@echo "... src/main_enhanced.i"
+	@echo "... src/main_enhanced.s"
 .PHONY : help
 
 

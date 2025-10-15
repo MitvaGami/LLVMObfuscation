@@ -1,6 +1,6 @@
 CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o: \
-  /home/mitva/advanced-llvm-obfuscator/src/ObfuscationReporter.cpp \
-  /home/mitva/advanced-llvm-obfuscator/src/ObfuscationReporter.h \
+  /home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp \
+  /home/mohini/LLVMObfuscation/src/ObfuscationReporter.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/string \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/requires_hosted.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/x86_64-linux-gnu/c++/13/bits/c++config.h \

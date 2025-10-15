@@ -1,0 +1,12 @@
+CFFlattening: Skipping function authenticate_user due to switch statement.
+CFFlattening: Skipping function calculate_secret_value due to switch statement.
+CFFlattening: Skipping function main due to switch statement.
+CFFlattening: Successfully flattened function decrypt_7379
+CFFlattening: Successfully flattened function decrypt_6684
+CFFlattening: Successfully flattened function decrypt_83
+CFFlattening: Successfully flattened function decrypt_1418
+CFFlattening: Successfully flattened function decrypt_7265
+CFFlattening: Successfully flattened function decrypt_151
+CFFlattening: Successfully flattened function decrypt_2946
+CFFlattening: Successfully flattened function decrypt_7427
+CFFlattening: Flattened 8 functions

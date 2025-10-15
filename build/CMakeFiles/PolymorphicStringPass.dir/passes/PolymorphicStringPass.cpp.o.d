@@ -1,5 +1,5 @@
 CMakeFiles/PolymorphicStringPass.dir/passes/PolymorphicStringPass.cpp.o: \
-  /home/mitva/advanced-llvm-obfuscator/passes/PolymorphicStringPass.cpp \
+  /home/mohini/LLVMObfuscation/passes/PolymorphicStringPass.cpp \
   /usr/lib/llvm-18/include/llvm/IR/Function.h \
   /usr/lib/llvm-18/include/llvm/ADT/DenseSet.h \
   /usr/lib/llvm-18/include/llvm/ADT/DenseMap.h \

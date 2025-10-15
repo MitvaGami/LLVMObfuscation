@@ -1,0 +1,4 @@
+CFFlattening: Successfully flattened function authenticate_user
+CFFlattening: Successfully flattened function calculate_secret_value
+CFFlattening: Successfully flattened function main
+CFFlattening: Flattened 3 functions

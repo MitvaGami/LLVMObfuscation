@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mitva/advanced-llvm-obfuscator
+CMAKE_SOURCE_DIR = /home/mohini/LLVMObfuscation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mitva/advanced-llvm-obfuscator/build
+CMAKE_BINARY_DIR = /home/mohini/LLVMObfuscation/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/advanced-obfuscator.dir/depend.make
@@ -70,32 +70,32 @@ include CMakeFiles/advanced-obfuscator.dir/progress.make
 include CMakeFiles/advanced-obfuscator.dir/flags.make
 
 CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o: CMakeFiles/advanced-obfuscator.dir/flags.make
-CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o: /home/mitva/advanced-llvm-obfuscator/src/main.cpp
+CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o: /home/mohini/LLVMObfuscation/src/main.cpp
 CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o: CMakeFiles/advanced-obfuscator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o"
-	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o -MF CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o.d -o CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o -c /home/mitva/advanced-llvm-obfuscator/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o"
+	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o -MF CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o.d -o CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o -c /home/mohini/LLVMObfuscation/src/main.cpp
 
 CMakeFiles/advanced-obfuscator.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/advanced-obfuscator.dir/src/main.cpp.i"
-	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mitva/advanced-llvm-obfuscator/src/main.cpp > CMakeFiles/advanced-obfuscator.dir/src/main.cpp.i
+	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mohini/LLVMObfuscation/src/main.cpp > CMakeFiles/advanced-obfuscator.dir/src/main.cpp.i
 
 CMakeFiles/advanced-obfuscator.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/advanced-obfuscator.dir/src/main.cpp.s"
-	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mitva/advanced-llvm-obfuscator/src/main.cpp -o CMakeFiles/advanced-obfuscator.dir/src/main.cpp.s
+	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mohini/LLVMObfuscation/src/main.cpp -o CMakeFiles/advanced-obfuscator.dir/src/main.cpp.s
 
 CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o: CMakeFiles/advanced-obfuscator.dir/flags.make
-CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o: /home/mitva/advanced-llvm-obfuscator/src/ObfuscationReporter.cpp
+CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o: /home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp
 CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o: CMakeFiles/advanced-obfuscator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o"
-	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o -MF CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o.d -o CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o -c /home/mitva/advanced-llvm-obfuscator/src/ObfuscationReporter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o"
+	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o -MF CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o.d -o CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o -c /home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp
 
 CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.i"
-	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mitva/advanced-llvm-obfuscator/src/ObfuscationReporter.cpp > CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.i
+	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp > CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.i
 
 CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.s"
-	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mitva/advanced-llvm-obfuscator/src/ObfuscationReporter.cpp -o CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.s
+	clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp -o CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.s
 
 # Object files for target advanced-obfuscator
 advanced__obfuscator_OBJECTS = \
@@ -124,7 +124,7 @@ advanced-obfuscator: /usr/lib/x86_64-linux-gnu/libzstd.so
 advanced-obfuscator: /usr/lib/x86_64-linux-gnu/libtinfo.so
 advanced-obfuscator: /usr/lib/llvm-18/lib/libLLVMDemangle.a
 advanced-obfuscator: CMakeFiles/advanced-obfuscator.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mitva/advanced-llvm-obfuscator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable advanced-obfuscator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/mohini/LLVMObfuscation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable advanced-obfuscator"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/advanced-obfuscator.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -136,6 +136,6 @@ CMakeFiles/advanced-obfuscator.dir/clean:
 .PHONY : CMakeFiles/advanced-obfuscator.dir/clean
 
 CMakeFiles/advanced-obfuscator.dir/depend:
-	cd /home/mitva/advanced-llvm-obfuscator/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/mitva/advanced-llvm-obfuscator /home/mitva/advanced-llvm-obfuscator /home/mitva/advanced-llvm-obfuscator/build /home/mitva/advanced-llvm-obfuscator/build /home/mitva/advanced-llvm-obfuscator/build/CMakeFiles/advanced-obfuscator.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/mohini/LLVMObfuscation/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/mohini/LLVMObfuscation /home/mohini/LLVMObfuscation /home/mohini/LLVMObfuscation/build /home/mohini/LLVMObfuscation/build /home/mohini/LLVMObfuscation/build/CMakeFiles/advanced-obfuscator.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/advanced-obfuscator.dir/depend
 

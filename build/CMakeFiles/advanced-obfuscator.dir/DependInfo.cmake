@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/mitva/advanced-llvm-obfuscator/src/ObfuscationReporter.cpp" "CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o" "gcc" "CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o.d"
-  "/home/mitva/advanced-llvm-obfuscator/src/main.cpp" "CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o" "gcc" "CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o.d"
+  "/home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp" "CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o" "gcc" "CMakeFiles/advanced-obfuscator.dir/src/ObfuscationReporter.cpp.o.d"
+  "/home/mohini/LLVMObfuscation/src/main.cpp" "CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o" "gcc" "CMakeFiles/advanced-obfuscator.dir/src/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

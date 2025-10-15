@@ -1,0 +1,25 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/mohini/LLVMObfuscation/src/ObfuscationReporter.cpp" "CMakeFiles/sih-obfuscator.dir/src/ObfuscationReporter.cpp.o" "gcc" "CMakeFiles/sih-obfuscator.dir/src/ObfuscationReporter.cpp.o.d"
+  "/home/mohini/LLVMObfuscation/src/SIHObfuscationReporter.cpp" "CMakeFiles/sih-obfuscator.dir/src/SIHObfuscationReporter.cpp.o" "gcc" "CMakeFiles/sih-obfuscator.dir/src/SIHObfuscationReporter.cpp.o.d"
+  "/home/mohini/LLVMObfuscation/src/main_enhanced.cpp" "CMakeFiles/sih-obfuscator.dir/src/main_enhanced.cpp.o" "gcc" "CMakeFiles/sih-obfuscator.dir/src/main_enhanced.cpp.o.d"
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

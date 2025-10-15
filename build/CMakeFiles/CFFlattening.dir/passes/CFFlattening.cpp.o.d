@@ -1,5 +1,5 @@
 CMakeFiles/CFFlattening.dir/passes/CFFlattening.cpp.o: \
-  /home/mitva/advanced-llvm-obfuscator/passes/CFFlattening.cpp \
+  /home/mohini/LLVMObfuscation/passes/CFFlattening.cpp \
   /usr/lib/llvm-18/include/llvm/IR/Function.h \
   /usr/lib/llvm-18/include/llvm/ADT/DenseSet.h \
   /usr/lib/llvm-18/include/llvm/ADT/DenseMap.h \

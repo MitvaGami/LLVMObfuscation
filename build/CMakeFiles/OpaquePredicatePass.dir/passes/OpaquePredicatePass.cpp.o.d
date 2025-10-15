@@ -1,5 +1,5 @@
 CMakeFiles/OpaquePredicatePass.dir/passes/OpaquePredicatePass.cpp.o: \
-  /home/mitva/advanced-llvm-obfuscator/passes/OpaquePredicatePass.cpp \
+  /home/mohini/LLVMObfuscation/passes/OpaquePredicatePass.cpp \
   /usr/lib/llvm-18/include/llvm/IR/Function.h \
   /usr/lib/llvm-18/include/llvm/ADT/DenseSet.h \
   /usr/lib/llvm-18/include/llvm/ADT/DenseMap.h \

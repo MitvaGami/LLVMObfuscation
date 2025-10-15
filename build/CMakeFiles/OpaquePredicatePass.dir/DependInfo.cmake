@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/mitva/advanced-llvm-obfuscator/passes/OpaquePredicatePass.cpp" "CMakeFiles/OpaquePredicatePass.dir/passes/OpaquePredicatePass.cpp.o" "gcc" "CMakeFiles/OpaquePredicatePass.dir/passes/OpaquePredicatePass.cpp.o.d"
+  "/home/mohini/LLVMObfuscation/passes/OpaquePredicatePass.cpp" "CMakeFiles/OpaquePredicatePass.dir/passes/OpaquePredicatePass.cpp.o" "gcc" "CMakeFiles/OpaquePredicatePass.dir/passes/OpaquePredicatePass.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

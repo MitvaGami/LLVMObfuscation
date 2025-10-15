@@ -59,9 +59,11 @@ add_library(OpaquePredicatePass SHARED passes/OpaquePredicatePass.cpp)
 set_target_properties(OpaquePredicatePass PROPERTIES PREFIX "")
 configure_llvm_target(OpaquePredicatePass)
 
-add_library(FunctionSplittingPass SHARED passes/FunctionSplittingPass.cpp)
-set_target_properties(FunctionSplittingPass PROPERTIES PREFIX "")
-configure_llvm_target(FunctionSplittingPass)
+# Instruction Substitution pass
+add_library(InstructionSubstitutionPass SHARED passes/InstructionSubstitutionPass.cpp)
+set_target_properties(InstructionSubstitutionPass PROPERTIES PREFIX "")
+configure_llvm_target(InstructionSubstitutionPass)
+
 
 # ===== Main CLI application =====
 add_executable(advanced-obfuscator src/main.cpp src/ObfuscationReporter.cpp)
@@ -71,7 +73,11 @@ target_include_directories(advanced-obfuscator PRIVATE ${LLVM_INCLUDE_DIRS})
 target_link_libraries(advanced-obfuscator PRIVATE ${llvm_libs})
 
 # ===== SIH Enhanced application =====
-add_executable(sih-obfuscator src/main_enhanced.cpp src/SIHObfuscationReporter.cpp)
+add_executable(sih-obfuscator
+  src/main_enhanced.cpp
+  src/SIHObfuscationReporter.cpp
+  src/ObfuscationReporter.cpp
+)
 target_compile_features(sih-obfuscator PRIVATE cxx_std_17)
 target_include_directories(sih-obfuscator PRIVATE ${LLVM_INCLUDE_DIRS})
 target_link_libraries(sih-obfuscator PRIVATE ${llvm_libs})

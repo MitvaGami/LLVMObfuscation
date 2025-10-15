@@ -1,0 +1,1 @@
+clang++ -fPIC -O3 -DNDEBUG -shared -Wl,-soname,InstructionSubstitutionPass.so -o InstructionSubstitutionPass.so CMakeFiles/InstructionSubstitutionPass.dir/passes/InstructionSubstitutionPass.cpp.o 

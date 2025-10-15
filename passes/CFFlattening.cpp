@@ -25,7 +25,13 @@ private:
 
         // Skip functions that already have switch statements or are too complex
         for (BasicBlock& BB : F) {
-            if (isa<SwitchInst>(BB.getTerminator())) {
+            Instruction* term = BB.getTerminator();
+            if (!term) {
+                errs() << "CFFlattening: Skipping function " << F.getName() << " due to block without terminator.\n";
+                return false;
+            }
+
+            if (isa<SwitchInst>(term)) {
                 errs() << "CFFlattening: Skipping function " << F.getName() << " due to switch statement.\n";
                 return false;
             }
@@ -35,6 +41,25 @@ private:
                     errs() << "CFFlattening: Skipping function " << F.getName() << " due to invoke instruction.\n";
                     return false;
                 }
+                // Skip functions containing PHI nodes (requires complex SSA repair)
+                if (isa<PHINode>(&I)) {
+                    errs() << "CFFlattening: Skipping function " << F.getName() << " due to PHI nodes.\n";
+                    return false;
+                }
+                if (isa<LandingPadInst>(&I) || isa<CatchSwitchInst>(&I) || isa<CatchReturnInst>(&I) || isa<CleanupReturnInst>(&I)) {
+                    errs() << "CFFlattening: Skipping function " << F.getName() << " due to EH constructs.\n";
+                    return false;
+                }
+            }
+
+            // Only support simple branch/return terminators for now
+            if (!(isa<BranchInst>(term) || isa<ReturnInst>(term))) {
+                if (isa<IndirectBrInst>(term) || isa<CallBrInst>(term)) {
+                    errs() << "CFFlattening: Skipping function " << F.getName() << " due to complex terminator.\n";
+                } else {
+                    errs() << "CFFlattening: Skipping function " << F.getName() << " due to unsupported terminator.\n";
+                }
+                return false;
             }
         }
 
@@ -136,7 +161,8 @@ private:
         for (BasicBlock* bb : originalBlocks) {
             Instruction* terminator = bb->getTerminator();
             if (!terminator) continue;
-            
+
+            // Insert all new instructions BEFORE the old terminator
             IRBuilder<> termBuilder(terminator);
 
             if (BranchInst* br_term = dyn_cast<BranchInst>(terminator)) {
@@ -175,9 +201,11 @@ private:
                 }
                 termBuilder.CreateStore(ConstantInt::get(Type::getInt32Ty(ctx), 0), switchVar);
             }
-            
+
+            // Now erase the old terminator, and create a new branch at block end
             terminator->eraseFromParent();
-            termBuilder.CreateBr(dispatcherBB);
+            IRBuilder<> brBuilder(bb);
+            brBuilder.CreateBr(dispatcherBB);
         }
 
         // Create return block

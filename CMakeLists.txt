@@ -69,3 +69,9 @@ add_executable(advanced-obfuscator src/main.cpp src/ObfuscationReporter.cpp)
 target_compile_features(advanced-obfuscator PRIVATE cxx_std_17)
 target_include_directories(advanced-obfuscator PRIVATE ${LLVM_INCLUDE_DIRS})
 target_link_libraries(advanced-obfuscator PRIVATE ${llvm_libs})
+
+# ===== SIH Enhanced application =====
+add_executable(sih-obfuscator src/main_enhanced.cpp src/SIHObfuscationReporter.cpp)
+target_compile_features(sih-obfuscator PRIVATE cxx_std_17)
+target_include_directories(sih-obfuscator PRIVATE ${LLVM_INCLUDE_DIRS})
+target_link_libraries(sih-obfuscator PRIVATE ${llvm_libs})
